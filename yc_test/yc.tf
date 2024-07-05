@@ -4,6 +4,13 @@ variable "zone" {
   default     = "ru-central1-a"
 }
 
+data "terraform_remote_state" "yc-bucket" {
+  backend = "local"
+  config = {
+    path = "${path.module}/../yc_bucket/terraform.tfstate"
+  }
+}
+
 terraform {
   required_providers {
     yandex = {
@@ -12,6 +19,20 @@ terraform {
     }
   }
   required_version = ">= 0.13"
+
+  backend "s3" {
+    endpoints = {
+      s3 = "https://storage.yandexcloud.net"
+    }
+    bucket = "kost3727-tf-state-bucket"
+    region = "ru-central1"
+    key    = "terraform.tfstate"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+  }
 }
 
 provider "yandex" {
