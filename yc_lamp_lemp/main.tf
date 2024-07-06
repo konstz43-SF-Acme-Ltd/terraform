@@ -14,7 +14,7 @@ data "yandex_compute_image" "image" {
 resource "yandex_compute_instance" "web-server" {
   name        = "${var.instance-type}-server"
   platform_id = "standard-v3"
-  zone        = var.zone
+  zone        = var.subnet.zone
 
   resources {
     cores         = 2

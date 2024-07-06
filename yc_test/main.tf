@@ -53,7 +53,6 @@ resource "yandex_vpc_subnet" "subnet2" {
 module "lemp-server" {
   source = "../yc_lamp_lemp"
 
-  zone = var.zone-a
   instance-type = "lemp"
   subnet = yandex_vpc_subnet.subnet1
 }
@@ -61,7 +60,6 @@ module "lemp-server" {
 module "lamp-server" {
   source = "../yc_lamp_lemp"
 
-  zone = var.zone-b
   instance-type = "lamp"
   subnet = yandex_vpc_subnet.subnet2
 }
