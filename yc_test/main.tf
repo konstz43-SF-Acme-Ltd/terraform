@@ -1,4 +1,4 @@
-data "terraform_remote_state" "yc-bucket" {
+data "terraform_remote_state" "yc-bucket" { # tfstate of remote storage (s3 bucket) for backend
   backend = "local"
   config = {
     path = "${path.module}/../yc_bucket/terraform.tfstate"
