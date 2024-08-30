@@ -10,7 +10,37 @@ variable "instance-type" {
   default     = "ubuntu-2004-lts" # Ubuntu 20.04 LTS
 }
 
+variable "cores" {
+  description = "Number of vCPU"
+  type        = string
+  default     = "2"
+}
+
+variable "memory" {
+  description = "Memory size (GBytes)"
+  type        = string
+  default     = "2"
+}
+
+variable "hd_size" {
+  description = "Hard disk size (GBytes)"
+  type        = string
+  default     = "15"
+}
+
 variable "subnet" {
   description = "Subnet name for instance"
   type        = string
+}
+
+variable "remote_user" {
+  description = "User name for login on remote host"
+  type        = string
+  default = "ubuntu"
+}
+
+variable "interruptible" {
+  description = "It's an interruptible machine"
+  type        = bool
+  default = true
 }

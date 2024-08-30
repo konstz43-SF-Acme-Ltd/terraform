@@ -24,8 +24,8 @@ resource "yandex_compute_instance" "vm" {
   zone        = data.yandex_vpc_subnet.subnet.zone
 
   resources {
-    cores         = 2
-    memory        = 1
+    cores         = var.cores
+    memory        = var.memory
     core_fraction = 5
   }
 
@@ -33,7 +33,7 @@ resource "yandex_compute_instance" "vm" {
     initialize_params {
       type     = "network-hdd"
       image_id = data.yandex_compute_image.image.id
-      size     = 15
+      size     = var.hd_size
     }
   }
 
@@ -43,10 +43,10 @@ resource "yandex_compute_instance" "vm" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
+    ssh-keys = "${var.remote_user}:${file("~/.ssh/id_ed25519.pub")}"
   }
 
   scheduling_policy {
-    preemptible = true # Interrupted VM
+    preemptible = var.interruptible # Interruptible VM
   }
 }
